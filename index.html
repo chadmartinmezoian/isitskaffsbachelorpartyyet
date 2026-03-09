@@ -35,8 +35,7 @@
 
   <script>
     const today = new Date();
-
-    const noUntil = new Date("June 11, 2026");
+    const partyDate = new Date("June 11, 2026");
     const yesStart = new Date("June 11, 2026");
     const yesEnd = new Date("June 14, 2026");
     const swedenStart = new Date("June 15, 2026");
@@ -44,8 +43,11 @@
     const mainMessage = document.getElementById("main-message");
     const subMessage = document.getElementById("sub-message");
 
-    if (today < noUntil) {
-      mainMessage.textContent = "NO";
+    if (today < yesStart) {
+      // Calculate days remaining
+      const timeDiff = partyDate - today;
+      const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+      mainMessage.textContent = `NO, IT IS ${daysRemaining} DAYS AWAY`;
       mainMessage.className = "red";
       subMessage.textContent = "(But Go Sox)";
     } else if (today >= yesStart && today <= yesEnd) {
