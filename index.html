@@ -16,13 +16,19 @@
       text-align: center;
     }
     #main-message {
-      font-size: 10vw;
+      font-size: 8vw;
       font-weight: bold;
     }
     #sub-message {
       font-size: 3vw;
       color: red;
       margin-top: 1rem;
+    }
+    #countdown {
+      font-size: 2.5vw;
+      color: red;
+      margin-top: 1rem;
+      font-weight: bold;
     }
     .red { color: red; }
     .green { color: green; }
@@ -32,33 +38,59 @@
 <body>
   <div id="main-message"></div>
   <div id="sub-message"></div>
+  <div id="countdown"></div>
 
   <script>
     const today = new Date();
-    const partyDate = new Date("June 11, 2026");
-    const yesStart = new Date("June 11, 2026");
-    const yesEnd = new Date("June 14, 2026");
-    const swedenStart = new Date("June 15, 2026");
+    const partyDate = new Date("June 11, 2026 00:00:00");
+    const yesStart = new Date("June 11, 2026 00:00:00");
+    const yesEnd = new Date("June 14, 2026 23:59:59");
+    const swedenStart = new Date("June 15, 2026 00:00:00");
 
     const mainMessage = document.getElementById("main-message");
     const subMessage = document.getElementById("sub-message");
+    const countdownDiv = document.getElementById("countdown");
 
-    if (today < yesStart) {
-      // Calculate days remaining
-      const timeDiff = partyDate - today;
-      const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-      mainMessage.textContent = `NO, IT IS ${daysRemaining} DAYS AWAY`;
-      mainMessage.className = "red";
-      subMessage.textContent = "(But Go Sox)";
-    } else if (today >= yesStart && today <= yesEnd) {
-      mainMessage.textContent = "YES!";
-      mainMessage.className = "green";
-      subMessage.textContent = "";
-    } else if (today >= swedenStart) {
-      mainMessage.textContent = "See you in Sweden";
-      mainMessage.className = "blue";
-      subMessage.textContent = "";
+    function updateCountdown() {
+      const now = new Date();
+      const timeDiff = partyDate - now;
+
+      if (timeDiff > 0) {
+        const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+        countdownDiv.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      } else {
+        countdownDiv.textContent = "";
+      }
     }
+
+    function updateMessages() {
+      const now = new Date();
+      if (now < yesStart) {
+        const timeDiff = partyDate - now;
+        const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+        mainMessage.textContent = `NO, IT IS ${daysRemaining} DAYS AWAY`;
+        mainMessage.className = "red";
+        subMessage.textContent = "(But Go Sox)";
+        countdownDiv.style.display = "block";
+        updateCountdown();
+        setInterval(updateCountdown, 1000); // update every second
+      } else if (now >= yesStart && now <= yesEnd) {
+        mainMessage.textContent = "YES!";
+        mainMessage.className = "green";
+        subMessage.textContent = "";
+        countdownDiv.style.display = "none";
+      } else if (now >= swedenStart) {
+        mainMessage.textContent = "See you in Sweden";
+        mainMessage.className = "blue";
+        subMessage.textContent = "";
+        countdownDiv.style.display = "none";
+      }
+    }
+
+    updateMessages();
   </script>
 </body>
 </html>
