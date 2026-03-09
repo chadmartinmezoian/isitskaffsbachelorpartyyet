@@ -12,17 +12,25 @@
       align-items: center;
       background-color: white;
       font-family: Arial, sans-serif;
+      flex-direction: column;
+      text-align: center;
     }
-    #message {
+    #main-message {
       font-size: 10vw;
       font-weight: bold;
       color: red;
-      text-align: center;
+    }
+    #sub-message {
+      font-size: 3vw;
+      color: red;
+      margin-top: 1rem;
     }
   </style>
 </head>
 <body>
-  <div id="message"></div>
+  <div id="main-message"></div>
+  <div id="sub-message"></div>
+
   <script>
     const today = new Date();
 
@@ -31,14 +39,18 @@
     const yesEnd = new Date("June 14, 2026");
     const swedenStart = new Date("June 15, 2026");
 
-    const messageDiv = document.getElementById("message");
+    const mainMessage = document.getElementById("main-message");
+    const subMessage = document.getElementById("sub-message");
 
     if (today < noUntil) {
-      messageDiv.textContent = "NO";
+      mainMessage.textContent = "NO";
+      subMessage.textContent = "(But Go Sox)";
     } else if (today >= yesStart && today <= yesEnd) {
-      messageDiv.textContent = "YES!";
+      mainMessage.textContent = "YES!";
+      subMessage.textContent = "";
     } else if (today >= swedenStart) {
-      messageDiv.textContent = "See you in Sweden";
+      mainMessage.textContent = "See you in Sweden";
+      subMessage.textContent = "";
     }
   </script>
 </body>
