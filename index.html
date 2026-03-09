@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Is It Skaff's Bachelor Party Yet?</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: white;
+      font-family: Arial, sans-serif;
+    }
+    #message {
+      font-size: 10vw; /* scales with screen size */
+      font-weight: bold;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="message"></div>
+
+  <script>
+    const partyDate = new Date("June 11, 2026");
+    const today = new Date();
+
+    const messageDiv = document.getElementById("message");
+
+    if (today >= partyDate) {
+      messageDiv.textContent = "YES!";
+    } else {
+      messageDiv.textContent = "NO";
+    }
+  </script>
+</body>
+</html>
