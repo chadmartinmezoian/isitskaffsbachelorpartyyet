@@ -14,25 +14,31 @@
       font-family: Arial, sans-serif;
     }
     #message {
-      font-size: 10vw; /* scales with screen size */
+      font-size: 10vw;
       font-weight: bold;
       color: red;
+      text-align: center;
     }
   </style>
 </head>
 <body>
   <div id="message"></div>
-
   <script>
-    const partyDate = new Date("June 11, 2026");
     const today = new Date();
+
+    const noUntil = new Date("June 11, 2026");
+    const yesStart = new Date("June 11, 2026");
+    const yesEnd = new Date("June 14, 2026");
+    const swedenStart = new Date("June 15, 2026");
 
     const messageDiv = document.getElementById("message");
 
-    if (today >= partyDate) {
-      messageDiv.textContent = "YES!";
-    } else {
+    if (today < noUntil) {
       messageDiv.textContent = "NO";
+    } else if (today >= yesStart && today <= yesEnd) {
+      messageDiv.textContent = "YES!";
+    } else if (today >= swedenStart) {
+      messageDiv.textContent = "See you in Sweden";
     }
   </script>
 </body>
