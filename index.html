@@ -18,13 +18,15 @@
     #main-message {
       font-size: 10vw;
       font-weight: bold;
-      color: red;
     }
     #sub-message {
       font-size: 3vw;
       color: red;
       margin-top: 1rem;
     }
+    .red { color: red; }
+    .green { color: green; }
+    .blue { color: blue; }
   </style>
 </head>
 <body>
@@ -44,12 +46,15 @@
 
     if (today < noUntil) {
       mainMessage.textContent = "NO";
+      mainMessage.className = "red";
       subMessage.textContent = "(But Go Sox)";
     } else if (today >= yesStart && today <= yesEnd) {
       mainMessage.textContent = "YES!";
+      mainMessage.className = "green";
       subMessage.textContent = "";
     } else if (today >= swedenStart) {
       mainMessage.textContent = "See you in Sweden";
+      mainMessage.className = "blue";
       subMessage.textContent = "";
     }
   </script>
