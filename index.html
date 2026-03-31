@@ -1,242 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Is It Skaff's Bachelor Party Yet?</title>
+async function loadStandings() {
+  try {
+    const response = await fetch("https://statsapi.mlb.com/api/v1/standings?leagueId=103");
+    const data = await response.json();
 
-<style>
+    // ✅ Use division ID instead of name
+    const alEast = data.records.find(r => r.division.id === 201);
 
-body{
-margin:0;
-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-font-family:Arial, Helvetica, sans-serif;
-text-align:center;
-background:white;
+    if (!alEast) {
+      document.getElementById("standings").innerHTML = "AL East not found";
+      return;
+    }
+
+    let html = "<h2>AL EAST STANDINGS</h2>";
+    let firstPlaceTeam = "";
+
+    alEast.teamRecords.forEach((team, index) => {
+      const name = team.team.name;
+      const wins = team.leagueRecord.wins;
+      const losses = team.leagueRecord.losses;
+
+      if (index === 0) firstPlaceTeam = name;
+
+      let teamClass = "";
+      if (name.includes("Red Sox")) teamClass = "sox";
+
+      html += `<div class="${teamClass}">${index + 1}. ${name} (${wins}-${losses})</div>`;
+    });
+
+    document.getElementById("standings").innerHTML = html;
+
+    // Banner logic
+    if (firstPlaceTeam.includes("Red Sox")) {
+      banner.innerHTML = "RED SOX ARE IN FIRST PLACE";
+      banner.className = "banner soxBanner";
+    } 
+    else if (firstPlaceTeam.includes("Yankees")) {
+      banner.innerHTML = "THIS IS A YANKEES FAN WEBSITE NOW";
+      banner.className = "banner yankeesBanner";
+    }
+
+  } catch (e) {
+    console.error(e);
+    document.getElementById("standings").innerHTML = "AL East standings unavailable";
+  }
 }
-
-#main{
-font-size:8vw;
-font-weight:bold;
-}
-
-#sub{
-font-size:2.5vw;
-color:red;
-margin-top:10px;
-}
-
-#countdown{
-font-size:2vw;
-margin-top:15px;
-color:red;
-font-weight:bold;
-}
-
-#standings{
-margin-top:50px;
-font-size:20px;
-}
-
-.red{color:red;}
-.green{color:green;}
-.blue{color:blue;}
-.purple{color:purple;}
-
-.banner{
-margin-top:20px;
-font-size:26px;
-font-weight:bold;
-padding:10px 20px;
-border-radius:8px;
-}
-
-.soxBanner{
-background:#bd3039;
-color:white;
-}
-
-.yankeesBanner{
-background:black;
-color:white;
-animation:flash 1s infinite;
-}
-
-@keyframes flash{
-0%{opacity:1;}
-50%{opacity:.3;}
-100%{opacity:1;}
-}
-
-.sox{
-color:#bd3039;
-font-weight:bold;
-}
-
-</style>
-</head>
-
-<body>
-
-<div id="main"></div>
-<div id="sub"></div>
-<div id="countdown"></div>
-<div id="banner"></div>
-<div id="standings">Loading AL East standings...</div>
-
-<script>
-
-const partyDate = new Date("June 11, 2026 00:00:00");
-const yesStart = new Date("June 11, 2026 00:00:00");
-const yesEnd = new Date("June 14, 2026 23:59:59");
-const swedenStart = new Date("June 15, 2026 00:00:00");
-
-const weddingStart = new Date("July 23, 2026 00:00:00");
-const weddingEnd = new Date("July 26, 2026 23:59:59");
-
-const weddingAfter = new Date("July 27, 2026 00:00:00");
-
-const main = document.getElementById("main");
-const sub = document.getElementById("sub");
-const countdown = document.getElementById("countdown");
-const banner = document.getElementById("banner");
-
-function updateCountdown(){
-
-const now = new Date();
-const diff = partyDate - now;
-
-if(diff <= 0){
-countdown.innerHTML="";
-return;
-}
-
-const days = Math.floor(diff/(1000*60*60*24));
-const hours = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-const minutes = Math.floor((diff%(1000*60*60))/(1000*60));
-const seconds = Math.floor((diff%(1000*60))/1000);
-
-countdown.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-}
-
-function updateMessages(){
-
-const now = new Date();
-
-if(now < yesStart){
-
-const diff = partyDate - now;
-const days = Math.ceil(diff/(1000*60*60*24));
-
-main.innerHTML = `NO, IT IS ${days} DAYS AWAY`;
-main.className="red";
-
-sub.innerHTML="(But Go Sox)";
-setInterval(updateCountdown,1000);
-
-}
-
-else if(now >= yesStart && now <= yesEnd){
-
-main.innerHTML="YES";
-main.className="green";
-
-sub.innerHTML="";
-countdown.innerHTML="";
-
-}
-
-else if(now >= swedenStart && now < weddingStart){
-
-main.innerHTML="See you in Sweden";
-main.className="blue";
-
-sub.innerHTML="";
-countdown.innerHTML="";
-
-}
-
-else if(now >= weddingStart && now <= weddingEnd){
-
-main.innerHTML="Wedding is here!";
-main.className="purple";
-
-sub.innerHTML="";
-countdown.innerHTML="";
-
-}
-
-else if(now >= weddingAfter){
-
-main.innerHTML="Best wedding ever?";
-main.className="purple";
-
-sub.innerHTML="";
-countdown.innerHTML="";
-
-}
-
-}
-
-async function loadStandings(){
-
-try{
-
-const response = await fetch("https://statsapi.mlb.com/api/v1/standings?leagueId=103");
-const data = await response.json();
-
-const alEast = data.records.find(r => r.division.name === "American League East");
-
-let html="<h2>AL EAST STANDINGS</h2>";
-let firstPlaceTeam="";
-
-alEast.teamRecords.forEach((team,index)=>{
-
-const name = team.team.name;
-const wins = team.leagueRecord.wins;
-const losses = team.leagueRecord.losses;
-
-if(index===0){
-firstPlaceTeam=name;
-}
-
-let teamClass="";
-if(name.includes("Red Sox")){
-teamClass="sox";
-}
-
-html += `<div class="${teamClass}">${index+1}. ${name} (${wins}-${losses})</div>`;
-
-});
-
-document.getElementById("standings").innerHTML = html;
-
-if(firstPlaceTeam.includes("Red Sox")){
-banner.innerHTML="RED SOX ARE IN FIRST PLACE";
-banner.className="banner soxBanner";
-}
-
-if(firstPlaceTeam.includes("Yankees")){
-banner.innerHTML="THIS IS A YANKEES FAN WEBSITE NOW";
-banner.className="banner yankeesBanner";
-}
-
-}
-
-catch(e){
-document.getElementById("standings").innerHTML="AL East standings unavailable";
-}
-
-}
-
-updateMessages();
-loadStandings();
-
-</script>
-
-</body>
-</html>
