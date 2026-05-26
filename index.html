@@ -134,7 +134,7 @@ function updateMessages() {
   }
 
   else if (now >= yesStart && now <= yesEnd) {
-    main.innerHTML = "YES";
+    main.innerHTML = "IT'S HERE! CAN SOMEONE CHECK ON AUSTIN?";
     main.className = "green";
 
     sub.innerHTML = "";
@@ -171,7 +171,6 @@ async function loadStandings() {
     const response = await fetch("https://statsapi.mlb.com/api/v1/standings?leagueId=103");
     const data = await response.json();
 
-    // ✅ Reliable AL East lookup
     const alEast = data.records.find(r => r.division.id === 201);
 
     if (!alEast) {
@@ -197,7 +196,6 @@ async function loadStandings() {
 
     document.getElementById("standings").innerHTML = html;
 
-    // Banner logic
     if (firstPlaceTeam.includes("Red Sox")) {
       banner.innerHTML = "RED SOX ARE IN FIRST PLACE";
       banner.className = "banner soxBanner";
@@ -213,14 +211,10 @@ async function loadStandings() {
   }
 }
 
-// Run timers once (no stacking)
 setInterval(updateCountdown, 1000);
 setInterval(updateMessages, 60000);
-
-// Optional: refresh standings every 30 min
 setInterval(loadStandings, 1800000);
 
-// Initial load
 updateCountdown();
 updateMessages();
 loadStandings();
