@@ -3,130 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <title>Is It Skaff's Bachelor Party Yet?</title>
-
 <style>
-
-body{
-margin:0;
-min-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-font-family:Arial, Helvetica, sans-serif;
-text-align:center;
-background:white;
-padding:20px;
-box-sizing:border-box;
-}
-
-#main{
-font-size:7vw;
-font-weight:bold;
-}
-
-#sub{
-font-size:2vw;
-color:red;
-margin-top:10px;
-}
-
-#countdown{
-font-size:2vw;
-margin-top:15px;
-color:red;
-font-weight:bold;
-}
-
-#dailyBio{
-margin-top:40px;
-max-width:800px;
-font-size:18px;
-line-height:1.6;
-padding:25px;
-border:2px solid #ddd;
-border-radius:12px;
-background:#fafafa;
-text-align:left;
-box-shadow:0 4px 10px rgba(0,0,0,0.08);
-}
-
-#dailyBio h2{
-margin-top:0;
-text-align:center;
-font-size:32px;
-}
-
-.attendeeTitle{
-text-align:center;
-font-size:14px;
-font-weight:bold;
-letter-spacing:3px;
-color:#888;
-margin-bottom:10px;
-}
-
-.bioImage{
-width:220px;
-height:220px;
-object-fit:cover;
-border-radius:12px;
-display:block;
-margin:0 auto 20px auto;
-border:4px solid #ddd;
-}
-
-.red{
-color:red;
-}
-
-.green{
-color:green;
-}
-
-.blue{
-color:blue;
-}
-
-.purple{
-color:purple;
-}
-
-.label{
-font-weight:bold;
-}
-
+body{margin:0;min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;font-family:Arial, Helvetica, sans-serif;text-align:center;background:white;padding:20px;box-sizing:border-box;}
+#main{font-size:7vw;font-weight:bold;}
+#countdown{font-size:2vw;margin-top:15px;color:red;font-weight:bold;}
+#dailyBio{margin-top:40px;max-width:800px;font-size:18px;line-height:1.6;padding:25px;border:2px solid #ddd;border-radius:12px;background:#fafafa;text-align:left;box-shadow:0 4px 10px rgba(0,0,0,0.08);}
+#dailyBio h2{margin-top:0;text-align:center;font-size:32px;}
+.attendeeTitle{text-align:center;font-size:14px;font-weight:bold;letter-spacing:3px;color:#888;margin-bottom:10px;}
+.bioImage{width:220px;height:220px;object-fit:cover;border-radius:12px;display:block;margin:0 auto 20px auto;border:4px solid #ddd;}
+.red{color:red;}
+.green{color:green;}
+.blue{color:blue;}
+.purple{color:purple;}
+.label{font-weight:bold;}
 </style>
 </head>
 
 <body>
 
 <div id="main"></div>
-<div id="sub"></div>
 <div id="countdown"></div>
-
 <div id="dailyBio"></div>
 
 <script>
-
 const partyDate = new Date("June 11, 2026 00:00:00");
-
 const yesStart = new Date("June 11, 2026 00:00:00");
 const yesEnd = new Date("June 14, 2026 23:59:59");
-
 const swedenStart = new Date("June 15, 2026 00:00:00");
-
 const weddingStart = new Date("July 23, 2026 00:00:00");
 const weddingEnd = new Date("July 26, 2026 23:59:59");
-
 const weddingAfter = new Date("July 27, 2026 00:00:00");
 
 const main = document.getElementById("main");
-const sub = document.getElementById("sub");
 const countdown = document.getElementById("countdown");
 
-function updateCountdown() {
+const bachelorBios = [
+  {
+    day: 1,
+    name: "Brandon Garber",
+    image: "./images/brandon.jpg",
+    heightWeight: "5’9, 145",
+    hometown: "Wayne, NJ",
+    college: "Indiana",
+    bio: "Brandon is a father of two, girl and boy. A world class recruiter and former Phaidon employee, Brandon is perhaps best known for his homemade clarified cocktails and love for oysters and cooking, specifically his duck confit recipe. He once claimed he could forego water and drink just Negronis for the rest of his life. Garbs has two other passions: New York Giants football and hating Aaron Rodgers. Brandon was once part of a group of 4 who drank the bar Dan & John’s out of Narragansett beers in a single Sunday.",
+    notableMoment: "Jesse and Brandon once skipped a birthday party to indulge in this weekend’s favorite party favor and wander the streets of New York.",
+    beerCount: "30.5"
+  }
+];
 
+function updateCountdown() {
   const now = new Date();
   const diff = partyDate - now;
 
@@ -144,158 +69,57 @@ function updateCountdown() {
 }
 
 function updateMessages() {
-
   const now = new Date();
 
   if (now < yesStart) {
-
     const diff = partyDate - now;
     const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
     main.innerHTML = `NO, IT IS ${days} DAYS AWAY`;
     main.className = "red";
-
-    sub.innerHTML = "(But Go Sox)";
-  }
-
-  else if (now >= yesStart && now <= yesEnd) {
-
+  } else if (now >= yesStart && now <= yesEnd) {
     main.innerHTML = "IT'S HERE! CAN SOMEONE CHECK ON AUSTIN?";
     main.className = "green";
-
-    sub.innerHTML = "";
     countdown.innerHTML = "";
-  }
-
-  else if (now >= swedenStart && now < weddingStart) {
-
+  } else if (now >= swedenStart && now < weddingStart) {
     main.innerHTML = "See you in Sweden";
     main.className = "blue";
-
-    sub.innerHTML = "";
     countdown.innerHTML = "";
-  }
-
-  else if (now >= weddingStart && now <= weddingEnd) {
-
+  } else if (now >= weddingStart && now <= weddingEnd) {
     main.innerHTML = "Wedding is here!";
     main.className = "purple";
-
-    sub.innerHTML = "";
     countdown.innerHTML = "";
-  }
-
-  else if (now >= weddingAfter) {
-
+  } else if (now >= weddingAfter) {
     main.innerHTML = "Best wedding ever?";
     main.className = "purple";
-
-    sub.innerHTML = "";
     countdown.innerHTML = "";
   }
 }
 
-const bachelorBios = [
-
-  {
-    day: 1,
-
-    name: "Brandon Garber",
-
-    image: "images/brandon.jpg",
-
-    heightWeight: "5’9, 145",
-
-    hometown: "Wayne, NJ",
-
-    college: "Indiana",
-
-    bio: "Brandon is a father of two, girl and boy. A world class recruiter and former Phaidon employee, Brandon is perhaps best known for his homemade clarified cocktails and love for oysters and cooking, specifically his duck confit recipe. He once claimed he could forego water and drink just Negronis for the rest of his life. Garbs has two other passions: New York Giants football and hating Aaron Rodgers. Brandon was once part of a group of 4 who drank the bar Dan & John’s out of Narragansett beers in a single Sunday.",
-
-    notableMoment: "Jesse and Brandon once skipped a birthday party to indulge in this weekend’s favorite party favor and wander the streets of New York.",
-
-    beerCount: "30.5"
-  }
-
-];
-
 function loadDailyBio() {
-
-  const today = new Date().toDateString();
-
-  let savedBio = localStorage.getItem("dailyBachelorBio");
-  let savedDate = localStorage.getItem("dailyBachelorBioDate");
-
-  let selectedBio;
-
-  if (savedBio && savedDate === today) {
-
-    selectedBio = JSON.parse(savedBio);
-
-  } else {
-
-    selectedBio = bachelorBios[Math.floor(Math.random() * bachelorBios.length)];
-
-    localStorage.setItem("dailyBachelorBio", JSON.stringify(selectedBio));
-    localStorage.setItem("dailyBachelorBioDate", today);
-  }
+  const selectedBio = bachelorBios[0];
 
   document.getElementById("dailyBio").innerHTML = `
+    <div class="attendeeTitle">ATTENDEE OF THE DAY</div>
+    <h2>DAY ${selectedBio.day}: ${selectedBio.name}</h2>
+    <img src="${selectedBio.image}" alt="${selectedBio.name}" class="bioImage">
 
-    <div class="attendeeTitle">
-      ATTENDEE OF THE DAY
-    </div>
-
-    <h2>
-      DAY ${selectedBio.day}: ${selectedBio.name}
-    </h2>
-
-    <img 
-      src="${selectedBio.image}" 
-      alt="${selectedBio.name}" 
-      class="bioImage"
-    >
-
-    <p>
-      <span class="label">H/W:</span>
-      ${selectedBio.heightWeight}
-    </p>
-
-    <p>
-      <span class="label">Hometown:</span>
-      ${selectedBio.hometown}
-    </p>
-
-    <p>
-      <span class="label">College:</span>
-      ${selectedBio.college}
-    </p>
-
+    <p><span class="label">H/W:</span> ${selectedBio.heightWeight}</p>
+    <p><span class="label">Hometown:</span> ${selectedBio.hometown}</p>
+    <p><span class="label">College:</span> ${selectedBio.college}</p>
     <p>${selectedBio.bio}</p>
-
-    <p>
-      <span class="label">Notable Moment:</span>
-      ${selectedBio.notableMoment}
-    </p>
-
-    <p>
-      <span class="label">Weekend Beer Count O/U:</span>
-      ${selectedBio.beerCount}
-    </p>
-
+    <p><span class="label">Notable Moment:</span> ${selectedBio.notableMoment}</p>
+    <p><span class="label">Weekend Beer Count O/U:</span> ${selectedBio.beerCount}</p>
   `;
 }
 
 setInterval(updateCountdown, 1000);
-
 setInterval(updateMessages, 60000);
 
 updateCountdown();
 updateMessages();
 loadDailyBio();
-
 </script>
 
 </body>
 </html>
-```
