@@ -5,91 +5,78 @@
 <title>Is It Skaff's Bachelor Party Yet?</title>
 
 <style>
-
 body{
-margin:0;
-min-height:100vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-font-family:Arial, Helvetica, sans-serif;
-text-align:center;
-background:white;
-padding:20px;
-box-sizing:border-box;
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  font-family:Arial, Helvetica, sans-serif;
+  text-align:center;
+  background:white;
+  padding:20px;
+  box-sizing:border-box;
 }
 
 #main{
-font-size:7vw;
-font-weight:bold;
+  font-size:7vw;
+  font-weight:bold;
 }
 
 #countdown{
-font-size:2vw;
-margin-top:15px;
-color:red;
-font-weight:bold;
+  font-size:2vw;
+  margin-top:15px;
+  color:red;
+  font-weight:bold;
 }
 
 #dailyBio{
-margin-top:40px;
-max-width:800px;
-font-size:18px;
-line-height:1.6;
-padding:25px;
-border:2px solid #ddd;
-border-radius:12px;
-background:#fafafa;
-text-align:left;
-box-shadow:0 4px 10px rgba(0,0,0,0.08);
+  margin-top:40px;
+  max-width:800px;
+  font-size:18px;
+  line-height:1.6;
+  padding:25px;
+  border:2px solid #ddd;
+  border-radius:12px;
+  background:#fafafa;
+  text-align:left;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
 }
 
 #dailyBio h2{
-margin-top:0;
-text-align:center;
-font-size:32px;
+  margin-top:0;
+  text-align:center;
+  font-size:32px;
 }
 
 .attendeeTitle{
-text-align:center;
-font-size:14px;
-font-weight:bold;
-letter-spacing:3px;
-color:#888;
-margin-bottom:10px;
+  text-align:center;
+  font-size:14px;
+  font-weight:bold;
+  letter-spacing:3px;
+  color:#888;
+  margin-bottom:10px;
 }
 
 .bioImage{
-width:220px;
-height:220px;
-object-fit:cover;
-border-radius:12px;
-display:block;
-margin:0 auto 20px auto;
-border:4px solid #ddd;
+  width:220px;
+  height:220px;
+  object-fit:cover;
+  border-radius:12px;
+  display:block;
+  margin:0 auto 20px auto;
+  border:4px solid #ddd;
 }
 
-.red{
-color:red;
-}
-
-.green{
-color:green;
-}
-
-.blue{
-color:blue;
-}
-
-.purple{
-color:purple;
-}
+.red{ color:red; }
+.green{ color:green; }
+.blue{ color:blue; }
+.purple{ color:purple; }
 
 .label{
-font-weight:bold;
+  font-weight:bold;
 }
-
 </style>
 </head>
 
@@ -97,11 +84,9 @@ font-weight:bold;
 
 <div id="main"></div>
 <div id="countdown"></div>
-
 <div id="dailyBio"></div>
 
 <script>
-
 const partyDate = new Date("June 11, 2026 00:00:00");
 
 const yesStart = new Date("June 11, 2026 00:00:00");
@@ -114,11 +99,13 @@ const weddingEnd = new Date("July 26, 2026 23:59:59");
 
 const weddingAfter = new Date("July 27, 2026 00:00:00");
 
+const bioStartDate = new Date("May 28, 2026 00:00:00");
+const finalBioDay = 15;
+
 const main = document.getElementById("main");
 const countdown = document.getElementById("countdown");
 
 function updateCountdown() {
-
   const now = new Date();
   const diff = partyDate - now;
 
@@ -136,11 +123,9 @@ function updateCountdown() {
 }
 
 function updateMessages() {
-
   const now = new Date();
 
   if (now < yesStart) {
-
     const diff = partyDate - now;
     const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
@@ -149,68 +134,157 @@ function updateMessages() {
   }
 
   else if (now >= yesStart && now <= yesEnd) {
-
     main.innerHTML = "IT'S HERE! CAN SOMEONE CHECK ON AUSTIN?";
     main.className = "green";
-
     countdown.innerHTML = "";
   }
 
   else if (now >= swedenStart && now < weddingStart) {
-
     main.innerHTML = "See you in Sweden";
     main.className = "blue";
-
     countdown.innerHTML = "";
   }
 
   else if (now >= weddingStart && now <= weddingEnd) {
-
     main.innerHTML = "Wedding is here!";
     main.className = "purple";
-
     countdown.innerHTML = "";
   }
 
   else if (now >= weddingAfter) {
-
     main.innerHTML = "Best wedding ever?";
     main.className = "purple";
-
     countdown.innerHTML = "";
   }
 }
 
 const bachelorBios = [
-
   {
     day: 1,
-
     name: "Brandon Garber",
-
-    image: "brandon.jpg",
-
+    imageBase: "brandon",
     heightWeight: "5’9, 145",
-
     hometown: "Wayne, NJ",
-
     college: "Indiana",
-
     bio: "Brandon is a father of two, girl and boy. A world class recruiter and former Phaidon employee, Brandon is perhaps best known for his homemade clarified cocktails and love for oysters and cooking, specifically his duck confit recipe. He once claimed he could forego water and drink just Negronis for the rest of his life. Garbs has two other passions: New York Giants football and hating Aaron Rodgers. Brandon was once part of a group of 4 who drank the bar Dan & John’s out of Narragansett beers in a single Sunday.",
-
     notableMoment: "Jesse and Brandon once skipped a birthday party to indulge in this weekend’s favorite party favor and wander the streets of New York.",
-
     beerCount: "30.5"
+  },
+  {
+    day: 2,
+    name: "Connor Gavey",
+    imageBase: "connor",
+    heightWeight: "6’0, 200",
+    hometown: "Fairfield, CT",
+    college: "Dickinson",
+    bio: "Connor is also a father of two, two boys. A four year letterman of the almost legendary Dickinson soccer team, Connor used his tree trunk legs in the defensive backfield of the pitch keeping wannabe goalscorers out for four years. “Gravy” lived upstairs from Jesse senior year and Jesse has heard him make the bed rock with his college sweetheart, now wife, on more than a few occasions. Connor is one of the stalwarts of the Dick U friend group, and one of the last standing of Jesse’s friends who lives and works in New York. Though he has taken his family, car, lawnmower, grill, country club membership, and mortgage to the suburbs, Connor is still a regular presence in the city. Connor Gavey is the ultimate “come with guy” and is always there for the big moments and events.",
+    notableMoment: "Although being vehemently against getting a table at La Folie Douce in the French Alps, even Connor will admit he had fun drinking bottomless champagne 10,000 feet up with the Alps backdrop and live sax once that executive decision was made.",
+    beerCount: "27.5"
+  },
+  {
+    day: 3,
+    name: "Anthony Hanna",
+    imageBase: "anthony",
+    heightWeight: "5’11, 215",
+    hometown: "Danbury, CT",
+    college: "Wesleyan",
+    bio: "Anthony Hanna, aka DJ Hanna, is the closest this group will get to meeting John Summit. In fact, Hanna once trekked to a cave in rural Tennessee to see John Summit perform. A former risk recruiting teammate of Jesse’s and Anthony McCann’s, also attending this weekend, Hanna is a Phaidon vet who is as much of an expert on the phones as he is on the decks. For some strange reason as a kid, although he is from Connecticut, he chose to be a Colts fan so feel free to ask him about that this weekend.",
+    notableMoment: "Although there are two legendary Vegas trips to choose from, Hanna’s best pick came planning an all time dinner on a different bachelor party that included a live DJ set and 15 course dinner in Scottsdale where he correctly pointed out every single song the DJ played within the first 3 seconds of music being played.",
+    beerCount: "41.5"
+  },
+  {
+    day: 4,
+    name: "Rich Klein",
+    imageBase: "rich",
+    heightWeight: "6’1, 215",
+    hometown: "Wantagh, NY",
+    college: "Syracuse",
+    bio: "Don’t let the gray hairs in his beard fool you, handsome though he is. This soon to be 40 year old can party like he’s 26, 7 days a week. It’s actually his 40th bday on the Saturday of the stag! There is not a drug he hasn’t done and a beer he hasn’t disliked. Rich’s fiancé is Kiki’s best friend from work. Some of you have met her, the famous Woo. Woo! If anyone needs a shaman for the trip this weekend, Rich is your man. Even though Rich will only be here for 2/3 nights of the weekend, expect his average beers per day to be amongst the highest in the group.",
+    notableMoment: "The first time they hung out, Rich guided Jesse, Kiki, Woo, and two others on a beautiful journey of their first mushroom experience in the comfort of a lodge in upstate New York.",
+    beerCount: "25.5"
+  },
+  {
+    day: 5,
+    name: "Andrew Hastings",
+    imageBase: "andrew",
+    heightWeight: "6’0, 205",
+    hometown: "Westchester, NY",
+    college: "Iona",
+    bio: "Andrew is a father of two, boy and girl. Another Phaidon veteran and fellow foodie and cocktail connoisseur, Andrew enjoys a fine glass of Scotch and a medium rare steak. His obsession of bay leaves has elevated his culinary prowess to becoming a slow-cooking master. Where Hastings feels truly at home, though, is manning the grill at a Korean BBQ restaurant and bar hopping Koreatown. Hastings is a true guys’ guy. He could tell you the top 10 rushing leaders of the 2000s while chugging a beer on the golf course.",
+    notableMoment: "Like some others in this group, Hastings’ fingers can get a little sticky after 8 or 9 beers. That pig you see in the photo became a mascot after it ended up in his hands on a KBBQ night out.",
+    beerCount: "33.5"
+  },
+  {
+    day: 15,
+    name: "Jesse Skaff",
+    imageBase: "jesse",
+    heightWeight: "TBD",
+    hometown: "TBD",
+    college: "TBD",
+    bio: "The bachelor. Full bio coming soon.",
+    notableMoment: "Getting married.",
+    beerCount: "TBD"
   }
-
 ];
 
-function loadDailyBio() {
+function getCurrentBioDay() {
+  const now = new Date();
+  const start = new Date(bioStartDate);
 
-  const selectedBio = bachelorBios[0];
+  start.setHours(0, 0, 0, 0);
+  now.setHours(0, 0, 0, 0);
+
+  const diff = now - start;
+  const day = Math.floor(diff / (1000 * 60 * 60 * 24)) + 1;
+
+  if (day < 1) return 1;
+  if (day > finalBioDay) return finalBioDay;
+
+  return day;
+}
+
+function getBioForToday() {
+  const currentDay = getCurrentBioDay();
+
+  const bio = bachelorBios.find(person => person.day === currentDay);
+
+  if (bio) return bio;
+
+  return {
+    day: currentDay,
+    name: "Bio Coming Soon",
+    imageBase: "placeholder",
+    heightWeight: "TBD",
+    hometown: "TBD",
+    college: "TBD",
+    bio: "More scouting reports are coming soon. No repeats. No skipped beers.",
+    notableMoment: "TBD",
+    beerCount: "TBD"
+  };
+}
+
+function setImageFallbacks(img, imageBase) {
+  const extensions = ["jpg", "jpeg", "png", "webp"];
+  let index = 0;
+
+  img.src = `${imageBase}.${extensions[index]}`;
+
+  img.onerror = function() {
+    index++;
+
+    if (index < extensions.length) {
+      img.src = `${imageBase}.${extensions[index]}`;
+    } else {
+      img.onerror = null;
+      img.src = "placeholder.jpg";
+    }
+  };
+}
+
+function loadDailyBio() {
+  const selectedBio = getBioForToday();
 
   document.getElementById("dailyBio").innerHTML = `
-
     <div class="attendeeTitle">
       ATTENDEE OF THE DAY
     </div>
@@ -220,7 +294,7 @@ function loadDailyBio() {
     </h2>
 
     <img
-      src="${selectedBio.image}"
+      id="bioImage"
       alt="${selectedBio.name}"
       class="bioImage"
     >
@@ -251,20 +325,18 @@ function loadDailyBio() {
       <span class="label">Weekend Beer Count O/U:</span>
       ${selectedBio.beerCount}
     </p>
-
   `;
+
+  setImageFallbacks(document.getElementById("bioImage"), selectedBio.imageBase);
 }
 
 setInterval(updateCountdown, 1000);
-
 setInterval(updateMessages, 60000);
 
 updateCountdown();
 updateMessages();
 loadDailyBio();
-
 </script>
 
 </body>
 </html>
-```
