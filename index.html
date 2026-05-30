@@ -100,7 +100,6 @@ const weddingEnd = new Date("July 26, 2026 23:59:59");
 const weddingAfter = new Date("July 27, 2026 00:00:00");
 
 const bioStartDate = new Date("May 28, 2026 00:00:00");
-const finalBioDay = 15;
 
 const main = document.getElementById("main");
 const countdown = document.getElementById("countdown");
@@ -215,6 +214,83 @@ const bachelorBios = [
     beerCount: "33.5"
   },
   {
+    day: 6,
+    name: "Chad Mezoian",
+    imageBase: "chad",
+    heightWeight: "6’3, 220",
+    hometown: "Rowley, MA",
+    college: "Bowdoin",
+    bio: "See that 6’3 220 above? It’s made of solid granite, contrary to what you might think after seeing his picture back when Chad was a pudgy 14 year old freshman at The Governor’s Academy with frosted tips and the diet of Augustus Gloop. In what seems like an overnight sensation, literally, Chad couldn’t dunk one day in high school and the next he could, Chad became a handsome lad and feared power hitter in both the ISL and NESCAC where he hit cleanup for 4 years in college. Some guys can just roll out of bed and hit and Chad is one of them. Chad is a girl dad and spends most of his time not doing anything close to what will be occurring this weekend. He is the not-so-dark-horse to have the most fun this weekend. And please thank him for the genius idea of creating the weekend countdown website.",
+    notableMoment: "More like a collection of moments, Chad is the teammate Jesse has played the most baseball games with, between high school and summer ball. Jesse has seen at least 30 of Chad’s career home runs while Chad has witnessed all 4 of Jesse’s.",
+    beerCount: "29.5"
+  },
+  {
+    day: 7,
+    name: "Anthony McCann",
+    imageBase: "anthonym",
+    heightWeight: "5’10, 195",
+    hometown: "Philadelphia, PA",
+    college: "Penn State",
+    bio: "If McCann is reading this on his phone that means he hasn’t left it in the back of an Uber or at the bar in the last week, although he is probably on 4% battery. The Pride of Philly started at Phaidon 3 weeks before Jesse and was Jesse’s first Phaidon friend. For a Boston and a Philly fan to be such close friends shows there is hope for World Peace. If you asked him would he rather see Penn State win a NCAAF National Championship or lose his left nut, he’d have to really think about that. McCann has an encyclopedic memory which helps him remember every candidate he’s ever spoken to but more importantly could tell you where 90% of NBA and NFL players went to college. That is just part of what makes McCann a top notch sports fan, even if he does root for Philly and Penn State.",
+    notableMoment: "On their first Vegas trip together, McCann and Jesse were roommates. Some time after 3am Jesse came back to the room to find him in an unforgettable scene that can never be unseen.",
+    beerCount: "41.5"
+  },
+  {
+    day: 8,
+    name: "Diego Fiamma",
+    imageBase: "diego",
+    heightWeight: "188cm, 95kg",
+    hometown: "London, England",
+    college: "Dickinson",
+    bio: "It is hard to try to find something nice to say here. Diego has a really cool wife. Does that count? Okay on a serious note, there have been fewer bad influences on Jesse’s life, in the best way possible, than Diego. Easily one of the best partiers in any friend group, Diego won’t ever let anybody have a bad time. They have come a long way in their friendship from when Diego and Logan drew dicks on Jesse’s face in Sharpie while playing battle shots when Jesse was a freshman and they were juniors. Peer pressure is one of Diego’s greatest traits which has made Jesse’s fortitude about as strong as a wet tissue. If anyone thinks he sounds funny or when he’s asking which part of the pitch the goals are scored on when everyone gets to Fenway on Saturday, it’s because he’s not from here. Most importantly, the one positive thing Diego has done in Jesse’s life is create the spark that has everyone here this weekend: he is the reason Kiki and Jesse are together.",
+    notableMoment: "Aside from the dicks on the face and the countless man dates at Chinese restaurants, Diego’s finest work came when Jesse showed up to the Public Hotel at 2am on a Friday in February 2019. Borderline blacked out himself, all he needed was 4 words: “you know Kiki, right?” and the rest was history.",
+    beerCount: "99.5"
+  },
+  {
+    day: 9,
+    name: "Logan Furr",
+    imageBase: "logan",
+    heightWeight: "6’0, 195",
+    hometown: "Sharon, MA",
+    college: "Dickinson",
+    bio: "Ugh, another one where it is really hard to think of something nice to say. Speaking of bad influences, it is fair to say that if Diego is 1B, Logan is 1A in that category. Maybe Jesse has Stockholm Syndrome, pun intended, because even though the hazing never really stopped, Logan has created some of the most fun times Jesse has ever had. It is fair to say Logan is probably the closest Jesse has to an older brother, mostly because he preys on his demise. The great thing about Logan is that he is always super relaxed and never lets anything stress him out or get to him. That’s what makes him so fun! But we can all thank him for planning this glorious weekend.",
+    notableMoment: "Post breakup with Jesse’s college girlfriend, Logan had Jesse, Diego, and others to his house on the Cape for July 4th weekend. They proceeded to black out for 4 days straight. You ever have sex on a boat? Jesse has thanks to that weekend.",
+    beerCount: "99.5"
+  },
+  {
+    day: 10,
+    name: "Charles Cable",
+    imageBase: "charles",
+    heightWeight: "6’1, 225",
+    hometown: "Geneva, IL",
+    college: "Dickinson",
+    bio: "The man they call Blue Collar Joe. No wait, he calls himself that from safari villas, golf courses, and ski trips to Vail and the Alps. Make sure you have a drink in your hand for when Charles inevitably makes a toast to someone about something this weekend. Charles and Jesse were roommates for 3 years in college. Chances are he will drink his first beer faster than Austin this weekend, in about 31 seconds. There is no telling where it goes from there: either on the way to 100 or he thinks he is too mature for this nonsense and nurses a few the rest of the weekend. Another man who sure knows how to party and is at worst a good golfer. If anyone needs sailing lessons or a boat ride this weekend, Charles is your man. There are those who host and those who get hosted, and Charles Cable is most definitely a host.",
+    notableMoment: "Senior year, after being on the naughty list with DPS and the Dick U administration, they were forced to not have any parties at the house for a few months. But that all changed when Charles led the charge for a breakout kegger on a Tuesday in February. In full stick-it-to-the-man mode, they threw an absolute banger and set themselves up for an epic senior spring. That party was the launching point.",
+    beerCount: "79.5"
+  },
+  {
+    day: 11,
+    name: "Davis Brown",
+    imageBase: "davis",
+    heightWeight: "5’11, 125",
+    hometown: "Yarmouth, ME",
+    college: "Dickinson",
+    bio: "In case you balked at that weight, you’re right. It’s not Davis’s current weight but it was probably what he weighed after getting mono freshman year. Davis was the first person Jesse met at Dickinson on their first day, and since then, they have bonded over Boston sports championships, 6 to be exact, not including the 5 finals losses, 3 years as college roommates, 3 years together in NYC, and one epic summer in Boston. There is no greater definition of a glue guy than Davis Brown. A father of one with another on the way, Davis may leave his soul and dignity in Newport this weekend. If it seems like Davis has been quiet in the group chat leading up to this weekend it’s because he has probably spent every waking hour at the driving range and practicing darts so he doesn’t lose in either one. Just don’t let him get hot.",
+    notableMoment: "Summer 2014, Davis and Jesse shared an apartment at 870 Beacon Street in Boston. Davis interned for the Celtics while Jesse interned for the Red Sox. They both turned 21 over the summer. It was the greatest summer ever.",
+    beerCount: "69.5"
+  },
+  {
+    day: 12,
+    name: "Austin Dubus",
+    imageBase: "austin",
+    heightWeight: "6’0, 200",
+    hometown: "Newbury, MA",
+    college: "Miami (OH)",
+    bio: "The best man. Jesse’s first friend at The Governor’s Academy and oldest friend in life. If you ever need to know Barry Bonds’ year by year stat line or who won the 2002 AL Cy Young, ask Austin, but only if Jesse can’t answer it first. If you’d also like to debate the top 100 guitar solos of all time, Austin is your man. Austin and Jesse have bonded over being baseball nerds and music fans for nearly 20 years. Son of an author, and their wedding officiant, and aspiring writer himself, Austin is also a voracious reader. The only thing he might do more of than read books is drink beers and watch Red Sox games. If you don’t see him for a little while this weekend please go check on him as he might be taking a little beer nap.",
+    notableMoment: "They reached the mountaintop together in 2018 when they both went to World Series games 4 and 5 and watched the Red Sox win the World Series in person.",
+    beerCount: "1,257.5"
+  },
+  {
     day: 15,
     name: "Jesse Skaff",
     imageBase: "jesse",
@@ -226,6 +302,8 @@ const bachelorBios = [
     beerCount: "TBD"
   }
 ];
+
+const finalBioDay = Math.max(...bachelorBios.map(person => person.day));
 
 function getCurrentBioDay() {
   const now = new Date();
