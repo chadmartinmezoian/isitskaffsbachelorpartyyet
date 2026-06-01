@@ -31,8 +31,26 @@ body{
   font-weight:bold;
 }
 
+#playButton{
+  margin-top:20px;
+  margin-bottom:20px;
+  padding:14px 28px;
+  font-size:20px;
+  font-weight:bold;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  background:#111;
+  color:white;
+  transition:opacity .2s ease;
+}
+
+#playButton:hover{
+  opacity:.9;
+}
+
 #dailyBio{
-  margin-top:40px;
+  margin-top:20px;
   max-width:800px;
   font-size:18px;
   line-height:1.6;
@@ -84,6 +102,15 @@ body{
 
 <div id="main"></div>
 <div id="countdown"></div>
+
+<button id="playButton">
+  🎵 START THE PARTY 🎵
+</button>
+
+<audio id="partySong" loop>
+  <source src="herestojesse.mp3" type="audio/mpeg">
+</audio>
+
 <div id="dailyBio"></div>
 
 <script>
@@ -407,6 +434,14 @@ function loadDailyBio() {
 
   setImageFallbacks(document.getElementById("bioImage"), selectedBio.imageBase);
 }
+
+const song = document.getElementById("partySong");
+const playButton = document.getElementById("playButton");
+
+playButton.addEventListener("click", () => {
+  song.play();
+  playButton.innerHTML = "🎵 PARTY MODE ACTIVATED 🎵";
+});
 
 setInterval(updateCountdown, 1000);
 setInterval(updateMessages, 60000);
