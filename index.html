@@ -103,12 +103,24 @@ body{
 <div id="main"></div>
 <div id="countdown"></div>
 
-<button id="playButton">
-  🎵 START THE PARTY 🎵
-</button>
+<div id="musicButtons">
 
-<audio id="partySong" loop>
+  <button id="countryButton">
+    🤠 Here's to Jesse (Country)
+  </button>
+
+  <button id="saxButton">
+    🎷 Here's to Jesse (Saxhouse)
+  </button>
+
+</div>
+
+<audio id="countrySong" loop>
   <source src="herestojesse.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="saxSong" loop>
+  <source src="herestojesse-sax.mp3" type="audio/mpeg">
 </audio>
 
 <div id="dailyBio"></div>
@@ -440,7 +452,7 @@ const playButton = document.getElementById("playButton");
 
 playButton.addEventListener("click", () => {
   song.play();
-  playButton.innerHTML = "🎵 HERE'S TO JESSE 🎵";
+  playButton.innerHTML = "🎵 PARTY MODE ACTIVATED 🎵";
 });
 
 setInterval(updateCountdown, 1000);
