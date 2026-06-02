@@ -31,22 +31,34 @@ body{
   font-weight:bold;
 }
 
-#playButton{
+#musicButtons{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:15px;
   margin-top:20px;
   margin-bottom:20px;
-  padding:14px 28px;
-  font-size:20px;
+  flex-wrap:wrap;
+}
+
+#musicButtons button{
+  padding:14px 24px;
+  font-size:16px;
   font-weight:bold;
   border:none;
   border-radius:10px;
   cursor:pointer;
   background:#111;
   color:white;
-  transition:opacity .2s ease;
+  transition:all .2s ease;
 }
 
-#playButton:hover{
+#musicButtons button:hover{
   opacity:.9;
+}
+
+#musicButtons button.playing{
+  background:#1f8f3a;
 }
 
 #dailyBio{
@@ -104,11 +116,29 @@ body{
 <div id="main"></div>
 <div id="countdown"></div>
 
-<button id="playButton">
-  🎵 START THE PARTY 🎵
-</button>
+<div id="musicButtons">
+  <button id="countryButton" type="button">
+    🤠 Here's to Jesse
+  </button>
 
-<audio id="partySong" loop>
+  <button id="saxButton" type="button">
+    🎷 Here's to Jesse (Saxhouse)
+  </button>
+
+  <button id="reggaeButton" type="button">
+    🌴 Here's to Jesse (Reggae)
+  </button>
+</div>
+
+<audio id="countrySong" loop>
+  <source src="herestojesse.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="saxSong" loop>
+  <source src="herestojesse-sax.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="reggaeSong" loop>
   <source src="herestojesse-reggae.mp3" type="audio/mpeg">
 </audio>
 
@@ -245,10 +275,10 @@ const bachelorBios = [
     day: 6,
     name: "Chad Mezoian",
     imageBase: "chad",
-    heightWeight: "6’3, 230",
+    heightWeight: "6’3, 220",
     hometown: "Rowley, MA",
     college: "Bowdoin",
-    bio: "See that 6’3 230 above? It’s made of solid granite, contrary to what you might think after seeing his picture back when Chad was a pudgy 14 year old freshman at The Governor’s Academy with frosted tips and the diet of Augustus Gloop. In what seems like an overnight sensation, literally, Chad couldn’t dunk one day in high school and the next he could, Chad became a handsome lad and feared power hitter in both the ISL and NESCAC where he hit cleanup for 4 years in college. Some guys can just roll out of bed and hit and Chad is one of them. Chad is a girl dad and spends most of his time not doing anything close to what will be occurring this weekend. He is the not-so-dark-horse to have the most fun this weekend. And please thank him for the genius idea of creating the weekend countdown website.",
+    bio: "See that 6’3 220 above? It’s made of solid granite, contrary to what you might think after seeing his picture back when Chad was a pudgy 14 year old freshman at The Governor’s Academy with frosted tips and the diet of Augustus Gloop. In what seems like an overnight sensation, literally, Chad couldn’t dunk one day in high school and the next he could, Chad became a handsome lad and feared power hitter in both the ISL and NESCAC where he hit cleanup for 4 years in college. Some guys can just roll out of bed and hit and Chad is one of them. Chad is a girl dad and spends most of his time not doing anything close to what will be occurring this weekend. He is the not-so-dark-horse to have the most fun this weekend. And please thank him for the genius idea of creating the weekend countdown website.",
     notableMoment: "More like a collection of moments, Chad is the teammate Jesse has played the most baseball games with, between high school and summer ball. Jesse has seen at least 30 of Chad’s career home runs while Chad has witnessed all 4 of Jesse’s.",
     beerCount: "29.5"
   },
@@ -351,7 +381,6 @@ function getCurrentBioDay() {
 
 function getBioForToday() {
   const currentDay = getCurrentBioDay();
-
   const bio = bachelorBios.find(person => person.day === currentDay);
 
   if (bio) return bio;
@@ -436,12 +465,76 @@ function loadDailyBio() {
   setImageFallbacks(document.getElementById("bioImage"), selectedBio.imageBase);
 }
 
-const song = document.getElementById("partySong");
-const playButton = document.getElementById("playButton");
+const countrySong = document.getElementById("countrySong");
+const saxSong = document.getElementById("saxSong");
+const reggaeSong = document.getElementById("reggaeSong");
 
-playButton.addEventListener("click", () => {
-  song.play();
-  playButton.innerHTML = "🎵 PARTY MODE ACTIVATED 🎵";
+const countryButton = document.getElementById("countryButton");
+const saxButton = document.getElementById("saxButton");
+const reggaeButton = document.getElementById("reggaeButton");
+
+function resetMusicButtons() {
+  countryButton.innerHTML = "🤠 Here's to Jesse";
+  saxButton.innerHTML = "🎷 Here's to Jesse (Saxhouse)";
+  reggaeButton.innerHTML = "🌴 Here's to Jesse (Reggae)";
+
+  countryButton.classList.remove("playing");
+  saxButton.classList.remove("playing");
+  reggaeButton.classList.remove("playing");
+}
+
+function stopAllSongs() {
+  countrySong.pause();
+  saxSong.pause();
+  reggaeSong.pause();
+}
+
+countryButton.addEventListener("click", () => {
+  if (!countrySong.paused) {
+    countrySong.pause();
+    resetMusicButtons();
+    return;
+  }
+
+  stopAllSongs();
+  resetMusicButtons();
+
+  countrySong.play();
+
+  countryButton.innerHTML = "⏸️ Pause Jesse";
+  countryButton.classList.add("playing");
+});
+
+saxButton.addEventListener("click", () => {
+  if (!saxSong.paused) {
+    saxSong.pause();
+    resetMusicButtons();
+    return;
+  }
+
+  stopAllSongs();
+  resetMusicButtons();
+
+  saxSong.play();
+
+  saxButton.innerHTML = "⏸️ Pause Saxhouse";
+  saxButton.classList.add("playing");
+});
+
+reggaeButton.addEventListener("click", () => {
+  if (!reggaeSong.paused) {
+    reggaeSong.pause();
+    resetMusicButtons();
+    return;
+  }
+
+  stopAllSongs();
+  resetMusicButtons();
+
+  reggaeSong.play();
+
+  reggaeButton.innerHTML = "⏸️ Pause Reggae";
+  reggaeButton.classList.add("playing");
 });
 
 setInterval(updateCountdown, 1000);
