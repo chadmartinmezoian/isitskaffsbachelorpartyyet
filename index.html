@@ -364,6 +364,23 @@ const bachelorBios = [
 const finalBioDay = Math.max(...bachelorBios.map(person => person.day));
 
 function getCurrentBioDay() {
+
+  const params = new URLSearchParams(window.location.search);
+  const previewDay = params.get("day");
+
+  if (previewDay) {
+
+    const dayNumber = parseInt(previewDay, 10);
+
+    if (!isNaN(dayNumber)) {
+
+      if (dayNumber < 1) return 1;
+      if (dayNumber > finalBioDay) return finalBioDay;
+
+      return dayNumber;
+    }
+  }
+
   const now = new Date();
   const start = new Date(bioStartDate);
 
