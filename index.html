@@ -80,6 +80,23 @@ body{
   font-size:32px;
 }
 
+#sportsMashupContainer{
+  display:none;
+  margin-top:20px;
+  max-width:900px;
+  padding:25px;
+  border:2px solid #ddd;
+  border-radius:12px;
+  background:#fafafa;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+.sportsMashupVideo{
+  width:100%;
+  max-height:520px;
+  border-radius:12px;
+}
+
 .attendeeTitle{
   text-align:center;
   font-size:14px;
@@ -144,6 +161,24 @@ body{
 
 <div id="dailyBio"></div>
 
+<div id="sportsMashupContainer">
+  <div class="attendeeTitle">
+    NEW ENGLAND CHAMPIONSHIP MONTAGE
+  </div>
+
+  <video
+    id="sportsMashupVideo"
+    class="sportsMashupVideo"
+    autoplay
+    muted
+    loop
+    playsinline
+    controls
+  >
+    <source src="sportsmashup.mp4" type="video/mp4">
+  </video>
+</div>
+
 <script>
 const partyDate = new Date("June 11, 2026 00:00:00");
 
@@ -158,6 +193,9 @@ const weddingEnd = new Date("July 26, 2026 23:59:59");
 const weddingAfter = new Date("July 27, 2026 00:00:00");
 
 const bioStartDate = new Date("May 28, 2026 00:00:00");
+
+const montageStart = new Date("June 10, 2026 00:00:00");
+const montageEnd = new Date("June 11, 2026 23:59:59");
 
 const main = document.getElementById("main");
 const countdown = document.getElementById("countdown");
@@ -322,7 +360,7 @@ const bachelorBios = [
     heightWeight: "6’1, 225",
     hometown: "Geneva, IL",
     college: "Dickinson",
-    bio: "The man they call Blue Collar Joe – no wait, he calls himself that from safari villas, golf courses, and ski trips to Vail and the Alps. He proudly claims to have taken 7 virginities in his life. Make sure you have a drink in your hand for when Charles inevitably makes a toast to someone about something this weekend. Charles and Jesse were roommates for 3 years in college. Chances are he will drink his first beer faster than Austin this weekend, in about 31 seconds. There is no telling where it goes from there: either on the way to 100 or he thinks he is too mature for this nonsense and nurses a few the rest of the weekend. Another man who sure knows how to party and is at worst a good golfer. If anyone needs sailing lessons or a boat ride this weekend, Charles is your man. There are those who host and those who get hosted, and Charles Cable is most definitely a host.",
+    bio: "The man they call Blue Collar Joe - no wait, he calls himself that from safari villas, golf courses, and ski trips to Vail and the Alps. He proudly claims to have taken 7 virginities in his life. Make sure you have a drink in your hand for when Charles inevitably makes a toast to someone about something this weekend. Charles and Jesse were roommates for 3 years in college. Chances are he will drink his first beer faster than Austin this weekend, in about 31 seconds. There is no telling where it goes from there: either on the way to 100 or he thinks he is too mature for this nonsense and nurses a few the rest of the weekend. Another man who sure knows how to party and is at worst a good golfer. If anyone needs sailing lessons or a boat ride this weekend, Charles is your man. There are those who host and those who get hosted, and Charles Cable is most definitely a host.",
     notableMoment: "It could easily be the night this photo was taken when Charles drunkenly ran home from a party, slipped on the ice in the street, and smashed his face and Jesse spent the wee hours of the morning at the hospital while he got his lips and teeth repaired. But instead we’ll go with senior year, after being on the naughty list with DPS and the Dick U administration, we were forced to not have any parties at our house for a few months. But that all changed when Charles led the charge for a breakout kegger on a Tuesday in February. In full stick-it-to-the-man mode, we threw an absolute banger and set ourselves up for an epic senior spring. That party was the launching point.",
     beerCount: "79.5 or 17.5"
   },
@@ -396,6 +434,19 @@ function getCurrentBioDay() {
   return day;
 }
 
+function isMontageDay() {
+  const now = new Date();
+
+  const params = new URLSearchParams(window.location.search);
+  const previewMontage = params.get("montage");
+
+  if (previewMontage === "true") {
+    return true;
+  }
+
+  return now >= montageStart && now <= montageEnd;
+}
+
 function getBioForToday() {
   const currentDay = getCurrentBioDay();
   const bio = bachelorBios.find(person => person.day === currentDay);
@@ -434,9 +485,26 @@ function setImageFallbacks(img, imageBase) {
 }
 
 function loadDailyBio() {
+  const dailyBio = document.getElementById("dailyBio");
+  const sportsMashupContainer = document.getElementById("sportsMashupContainer");
+  const sportsMashupVideo = document.getElementById("sportsMashupVideo");
+
+  if (isMontageDay()) {
+    dailyBio.style.display = "none";
+    sportsMashupContainer.style.display = "block";
+
+    sportsMashupVideo.play().catch(() => {});
+    return;
+  }
+
+  sportsMashupContainer.style.display = "none";
+  sportsMashupVideo.pause();
+
+  dailyBio.style.display = "block";
+
   const selectedBio = getBioForToday();
 
-  document.getElementById("dailyBio").innerHTML = `
+  dailyBio.innerHTML = `
     <div class="attendeeTitle">
       ATTENDEE OF THE DAY
     </div>
