@@ -717,6 +717,11 @@ function loadDailyBio() {
       ${selectedBio.college}
     </p>
 
+    <p>
+      <span class="label">Weekend Beer Count O/U:</span>
+      ${selectedBio.beerCount}
+    </p>
+
     ${isJesseDay ? `
       <div class="tributeSection">
         <div class="label">Messages for Jesse:</div>
@@ -740,11 +745,6 @@ function loadDailyBio() {
         ${selectedBio.notableMoment}
       </p>
     `}
-
-    <p>
-      <span class="label">Weekend Beer Count O/U:</span>
-      ${selectedBio.beerCount}
-    </p>
   `;
 
   setImageFallbacks(document.getElementById("bioImage"), selectedBio.imageBase);
