@@ -286,10 +286,15 @@ function updateMessages() {
 
   if (now < yesStart) {
     const diff = partyDate - now;
-    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
 
-    main.innerHTML = `NO, IT IS ${days} DAYS AWAY`;
-    main.className = "red";
+if (days === 1) {
+  main.innerHTML = "FOLKS, IT'S TOMORROW! HANG IN THERE!";
+} else {
+  main.innerHTML = `NO, IT IS ${days} DAYS AWAY`;
+}
+
+main.className = "red";
   }
 
   else if (now >= yesStart && now <= yesEnd) {
