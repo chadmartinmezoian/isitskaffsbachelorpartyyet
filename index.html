@@ -181,6 +181,39 @@ body{
   }
 }
 
+
+#austinBeerCounter{
+  display:none;
+  margin-top:20px;
+  margin-bottom:10px;
+  padding:20px;
+  border:3px solid #1f8f3a;
+  border-radius:14px;
+  background:#f4fff7;
+  text-align:center;
+  box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+#austinBeerCounterTitle{
+  font-size:14px;
+  font-weight:bold;
+  letter-spacing:2px;
+  color:#666;
+  margin-bottom:10px;
+}
+
+#austinBeerCount{
+  font-size:48px;
+  font-weight:bold;
+  color:#1f8f3a;
+}
+
+#austinBeerCounterSub{
+  margin-top:10px;
+  color:#666;
+  font-size:14px;
+}
+
 .red{ color:red; }
 .green{ color:green; }
 .blue{ color:blue; }
@@ -196,6 +229,21 @@ body{
 
 <div id="main"></div>
 <div id="countdown"></div>
+
+<div id="austinBeerCounter">
+  <div id="austinBeerCounterTitle">
+    LIVE AUSTIN BEER TRACKER
+  </div>
+
+  <div id="austinBeerCount">
+    0
+  </div>
+
+  <div id="austinBeerCounterSub">
+    Projected Total: 100,000,000,000 Beers
+  </div>
+</div>
+
 
 <div id="musicButtons">
   <button id="countryButton" type="button">
@@ -883,12 +931,47 @@ reggaeButton.addEventListener("click", () => {
   reggaeButton.classList.add("playing");
 });
 
+
+function updateAustinBeerCounter() {
+  const now = new Date();
+  const params = new URLSearchParams(window.location.search);
+
+  const previewBeerCounter = params.get("beercounter") === "true";
+  const isBachelorPartyWeekend = now >= yesStart && now <= yesEnd;
+
+  const counter = document.getElementById("austinBeerCounter");
+  const count = document.getElementById("austinBeerCount");
+  const sub = document.getElementById("austinBeerCounterSub");
+
+  if (previewBeerCounter || isBachelorPartyWeekend) {
+    counter.style.display = "block";
+
+    const counterStart = previewBeerCounter && !isBachelorPartyWeekend
+      ? new Date(now.getTime() - 60 * 60 * 1000)
+      : yesStart;
+
+    const minutesSinceStart = Math.max(
+      0,
+      Math.floor((now - counterStart) / (1000 * 60))
+    );
+
+    const fakeBeers = minutesSinceStart * 100;
+
+    count.innerHTML = fakeBeers.toLocaleString();
+    sub.innerHTML = `${fakeBeers.toLocaleString()} beers consumed. Projected Total: 100,000,000,000 Beers`;
+  } else {
+    counter.style.display = "none";
+  }
+}
+
 setInterval(updateCountdown, 1000);
 setInterval(updateMessages, 60000);
+setInterval(updateAustinBeerCounter, 1000);
 
 updateCountdown();
 updateMessages();
 loadDailyBio();
+updateAustinBeerCounter();
 </script>
 
 </body>
