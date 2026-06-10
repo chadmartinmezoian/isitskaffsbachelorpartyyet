@@ -14,7 +14,7 @@ body{
   align-items:center;
   font-family:Arial, Helvetica, sans-serif;
   text-align:center;
-  background:white;
+  background:white;const startTime = new Date("June 11, 2026 16:00:00");
   padding:20px;
   box-sizing:border-box;
 }
@@ -950,10 +950,12 @@ function updateAustinBeerCounter() {
       ? new Date(now.getTime() - 60 * 60 * 1000)
       : yesStart;
 
-    const minutesSinceStart = Math.max(
-      0,
-      Math.floor((now - counterStart) / (1000 * 60))
-    );
+    const beerStartTime = new Date("June 11, 2026 16:00:00");
+
+const minutesSinceStart = Math.max(
+  0,
+  Math.floor((new Date() - beerStartTime) / (1000 * 60))
+);
 
     const fakeBeers = minutesSinceStart * 100;
 
